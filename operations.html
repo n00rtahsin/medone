@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDONE - Mission Operations</title>
+    <link rel="stylesheet" href="operations-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-helicopter"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="brand-text">
+                    <h3>MEDONE</h3>
+                    <span>Operations Center</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="operations.html" class="nav-link active"><i class="fas fa-satellite"></i> Operations</a></li>
+                <li><a href="deploy.html" class="nav-link"><i class="fas fa-rocket"></i> Deploy</a></li>
+                <li><a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="network.html" class="nav-link"><i class="fas fa-network-wired"></i> Network</a></li>
+                <li><a href="compliance.html" class="nav-link"><i class="fas fa-shield-check"></i> Compliance</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="emergency-btn pulse" onclick="triggerEmergency()">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency
+                </button>
+                <div class="user-profile" onclick="toggleUserMenu()">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23667eea'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='30' font-family='Arial'%3ENT%3C/text%3E%3C/svg%3E" alt="User">
+                    <span>NUR Tahsin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#help"><i class="fas fa-question-circle"></i> Help</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Operations Main Content -->
+    <main class="operations-main">
+        <div class="operations-background">
+            <div class="floating-particles"></div>
+            <div class="grid-overlay"></div>
+        </div>
+
+        <!-- Operations Header -->
+        <section class="operations-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-info">
+                        <h1>Mission Operations Center</h1>
+                        <p>Real-time drone fleet monitoring and mission control</p>
+                        <div class="operation-status">
+                            <div class="status-indicator active"></div>
+                            <span>Operations Active</span>
+                            <div class="status-details">
+                                <span>8/12 Drones Active</span>
+                                <span>•</span>
+                                <span>3 Missions In Progress</span>
+                                <span>•</span>
+                                <span id="currentTime"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-panel">
+                        <button class="control-btn primary" onclick="openMissionPlanner()">
+                            <i class="fas fa-plus"></i>
+                            New Mission
+                        </button>
+                        <button class="control-btn secondary" onclick="toggleAutoPilot()">
+                            <i class="fas fa-robot"></i>
+                            <span id="autopilotText">Enable AutoPilot</span>
+                        </button>
+                        <button class="control-btn warning" onclick="emergencyLanding()">
+                            <i class="fas fa-plane-slash"></i>
+                            Emergency Landing
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Operations Grid -->
+        <section class="operations-content">
+            <div class="container">
+                <div class="operations-grid">
+                    <!-- Fleet Status Panel -->
+                    <div class="ops-card fleet-status-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-helicopter"></i> Fleet Status</h3>
+                            <div class="fleet-summary">
+                                <span class="active-count">8 Active</span>
+                                <span class="total-count">/ 12 Total</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="fleet-grid">
+                                <div class="drone-unit active" data-drone="MD-001">
+                                    <div class="drone-header">
+                                        <div class="drone-id">MD-001</div>
+                                        <div class="drone-status delivering">EN ROUTE</div>
+                                    </div>
+                                    <div class="drone-info">
+                                        <div class="info-item">
+                                            <i class="fas fa-battery-three-quarters"></i>
+                                            <span>Battery: 78%</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>DMCH → Base</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>ETA: 4:32</span>
+                                        </div>
+                                    </div>
+                                    <div class="drone-controls">
+                                        <button class="btn-control" onclick="trackDrone('MD-001')">
+                                            <i class="fas fa-crosshairs"></i> Track
+                                        </button>
+                                        <button class="btn-control" onclick="communicateWithDrone('MD-001')">
+                                            <i class="fas fa-radio"></i> Radio
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="drone-unit active" data-drone="MD-002">
+                                    <div class="drone-header">
+                                        <div class="drone-id">MD-002</div>
+                                        <div class="drone-status returning">RETURNING</div>
+                                    </div>
+                                    <div class="drone-info">
+                                        <div class="info-item">
+                                            <i class="fas fa-battery-full"></i>
+                                            <span>Battery: 92%</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>BSMMU → Base</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>ETA: 6:15</span>
+                                        </div>
+                                    </div>
+                                    <div class="drone-controls">
+                                        <button class="btn-control" onclick="trackDrone('MD-002')">
+                                            <i class="fas fa-crosshairs"></i> Track
+                                        </button>
+                                        <button class="btn-control" onclick="communicateWithDrone('MD-002')">
+                                            <i class="fas fa-radio"></i> Radio
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="drone-unit standby" data-drone="MD-003">
+                                    <div class="drone-header">
+                                        <div class="drone-id">MD-003</div>
+                                        <div class="drone-status standby">STANDBY</div>
+                                    </div>
+                                    <div class="drone-info">
+                                        <div class="info-item">
+                                            <i class="fas fa-battery-full"></i>
+                                            <span>Battery: 100%</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>Square Hospital</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Ready</span>
+                                        </div>
+                                    </div>
+                                    <div class="drone-controls">
+                                        <button class="btn-control" onclick="deployDrone('MD-003')">
+                                            <i class="fas fa-paper-plane"></i> Deploy
+                                        </button>
+                                        <button class="btn-control" onclick="maintenanceDrone('MD-003')">
+                                            <i class="fas fa-tools"></i> Service
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="drone-unit charging" data-drone="MD-004">
+                                    <div class="drone-header">
+                                        <div class="drone-id">MD-004</div>
+                                        <div class="drone-status charging">CHARGING</div>
+                                    </div>
+                                    <div class="drone-info">
+                                        <div class="info-item">
+                                            <i class="fas fa-battery-quarter"></i>
+                                            <span>Battery: 34%</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-charging-station"></i>
+                                            <span>Base Station A</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>45min remaining</span>
+                                        </div>
+                                    </div>
+                                    <div class="drone-controls">
+                                        <button class="btn-control disabled">
+                                            <i class="fas fa-battery-empty"></i> Charging
+                                        </button>
+                                        <button class="btn-control" onclick="checkDroneHealth('MD-004')">
+                                            <i class="fas fa-heartbeat"></i> Health
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mission Control Map -->
+                    <div class="ops-card map-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-map"></i> Live Mission Map</h3>
+                            <div class="map-controls">
+                                <button class="map-btn" onclick="centerMap()">
+                                    <i class="fas fa-crosshairs"></i>
+                                </button>
+                                <button class="map-btn" onclick="toggleLayers()">
+                                    <i class="fas fa-layer-group"></i>
+                                </button>
+                                <button class="map-btn active" onclick="toggleTraffic()">
+                                    <i class="fas fa-traffic-light"></i>
+                                </button>
+                                <select id="mapView" onchange="changeMapView(this.value)">
+                                    <option value="satellite">Satellite</option>
+                                    <option value="street" selected>Street</option>
+                                    <option value="terrain">Terrain</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div id="missionMap" class="mission-map"></div>
+                            <div class="map-legend">
+                                <div class="legend-item">
+                                    <div class="legend-marker active"></div>
+                                    <span>Active Drone</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-marker standby"></div>
+                                    <span>Standby Drone</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-marker hospital"></div>
+                                    <span>Hospital</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-marker route"></div>
+                                    <span>Flight Path</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mission Queue -->
+                    <div class="ops-card mission-queue-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-list"></i> Mission Queue</h3>
+                            <div class="queue-stats">
+                                <span class="queue-count">7 Queued</span>
+                                <button class="btn-icon" onclick="refreshQueue()">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="mission-queue">
+                                <div class="queue-item priority-high">
+                                    <div class="queue-header">
+                                        <div class="mission-priority">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            <span>URGENT</span>
+                                        </div>
+                                        <div class="mission-time">14:23</div>
+                                    </div>
+                                    <div class="mission-details">
+                                        <div class="mission-title">Emergency Blood Supply</div>
+                                        <div class="mission-route">NICVD → Emergency Ward</div>
+                                        <div class="mission-weight">Payload: 0.8kg</div>
+                                    </div>
+                                    <div class="queue-actions">
+                                        <button class="btn-execute" onclick="executeImmediate('QUE-001')">
+                                            <i class="fas fa-play"></i> Execute Now
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="queue-item priority-medium">
+                                    <div class="queue-header">
+                                        <div class="mission-priority">
+                                            <i class="fas fa-clock"></i>
+                                            <span>SCHEDULED</span>
+                                        </div>
+                                        <div class="mission-time">15:00</div>
+                                    </div>
+                                    <div class="mission-details">
+                                        <div class="mission-title">Medication Delivery</div>
+                                        <div class="mission-route">Pharmacy → DMCH Ward 5</div>
+                                        <div class="mission-weight">Payload: 0.3kg</div>
+                                    </div>
+                                    <div class="queue-actions">
+                                        <button class="btn-modify" onclick="modifyMission('QUE-002')">
+                                            <i class="fas fa-edit"></i> Modify
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="queue-item priority-low">
+                                    <div class="queue-header">
+                                        <div class="mission-priority">
+                                            <i class="fas fa-calendar"></i>
+                                            <span>ROUTINE</span>
+                                        </div>
+                                        <div class="mission-time">16:30</div>
+                                    </div>
+                                    <div class="mission-details">
+                                        <div class="mission-title">Supply Transport</div>
+                                        <div class="mission-route">Central → Square Hospital</div>
+                                        <div class="mission-weight">Payload: 1.2kg</div>
+                                    </div>
+                                    <div class="queue-actions">
+                                        <button class="btn-delay" onclick="delayMission('QUE-003')">
+                                            <i class="fas fa-pause"></i> Delay
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Communication Center -->
+                    <div class="ops-card communication-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-radio"></i> Communication Center</h3>
+                            <div class="comm-status">
+                                <div class="status-indicator online"></div>
+                                <span>All Channels Clear</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="communication-panel">
+                                <div class="channel-selector">
+                                    <div class="channel active" data-channel="emergency">
+                                        <div class="channel-name">Emergency</div>
+                                        <div class="channel-freq">462.575 MHz</div>
+                                    </div>
+                                    <div class="channel" data-channel="operations">
+                                        <div class="channel-name">Operations</div>
+                                        <div class="channel-freq">462.625 MHz</div>
+                                    </div>
+                                    <div class="channel" data-channel="hospital">
+                                        <div class="channel-name">Hospital</div>
+                                        <div class="channel-freq">462.675 MHz</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="communication-log">
+                                    <div class="comm-message received">
+                                        <div class="msg-header">
+                                            <span class="msg-sender">MD-001</span>
+                                            <span class="msg-time">14:45:23</span>
+                                        </div>
+                                        <div class="msg-content">Approaching DMCH. ETA 2 minutes. All systems nominal.</div>
+                                    </div>
+                                    
+                                    <div class="comm-message sent">
+                                        <div class="msg-header">
+                                            <span class="msg-sender">Control</span>
+                                            <span class="msg-time">14:45:45</span>
+                                        </div>
+                                        <div class="msg-content">Copy MD-001. Hospital landing pad is clear. Proceed to landing.</div>
+                                    </div>
+                                    
+                                    <div class="comm-message received">
+                                        <div class="msg-header">
+                                            <span class="msg-sender">DMCH Control</span>
+                                            <span class="msg-time">14:46:12</span>
+                                        </div>
+                                        <div class="msg-content">Emergency patient requires immediate blood supply. Priority dispatch requested.</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="communication-input">
+                                    <div class="input-controls">
+                                        <select id="commTarget">
+                                            <option value="all">All Units</option>
+                                            <option value="MD-001">MD-001</option>
+                                            <option value="MD-002">MD-002</option>
+                                            <option value="hospitals">All Hospitals</option>
+                                        </select>
+                                        <input type="text" id="commMessage" placeholder="Type your message..." onkeypress="handleCommKeyPress(event)">
+                                        <button class="btn-send" onclick="sendMessage()">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                    <div class="quick-messages">
+                                        <button class="quick-msg" onclick="sendQuickMessage('All units, status report')">Status Report</button>
+                                        <button class="quick-msg" onclick="sendQuickMessage('Emergency protocol activated')">Emergency</button>
+                                        <button class="quick-msg" onclick="sendQuickMessage('Return to base immediately')">RTB</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Monitoring -->
+                    <div class="ops-card monitoring-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-server"></i> System Monitoring</h3>
+                            <div class="monitoring-controls">
+                                <button class="monitor-btn" onclick="toggleAlerts()">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="alert-count">3</span>
+                                </button>
+                                <button class="monitor-btn" onclick="exportLogs()">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="monitoring-grid">
+                                <div class="monitor-item">
+                                    <div class="monitor-header">
+                                        <i class="fas fa-wifi"></i>
+                                        <span>Network Status</span>
+                                    </div>
+                                    <div class="monitor-value">
+                                        <span class="value good">98.7%</span>
+                                        <span class="label">Uptime</span>
+                                    </div>
+                                    <div class="monitor-chart">
+                                        <canvas id="networkChart" width="100" height="40"></canvas>
+                                    </div>
+                                </div>
+                                
+                                <div class="monitor-item">
+                                    <div class="monitor-header">
+                                        <i class="fas fa-cloud"></i>
+                                        <span>Weather System</span>
+                                    </div>
+                                    <div class="monitor-value">
+                                        <span class="value good">Optimal</span>
+                                        <span class="label">Flight Conditions</span>
+                                    </div>
+                                    <div class="weather-mini">
+                                        <div class="weather-item">
+                                            <i class="fas fa-wind"></i>
+                                            <span>4.8 m/s</span>
+                                        </div>
+                                        <div class="weather-item">
+                                            <i class="fas fa-eye"></i>
+                                            <span>8 km</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="monitor-item">
+                                    <div class="monitor-header">
+                                        <i class="fas fa-database"></i>
+                                        <span>Data Storage</span>
+                                    </div>
+                                    <div class="monitor-value">
+                                        <span class="value warning">73.2%</span>
+                                        <span class="label">Used</span>
+                                    </div>
+                                    <div class="storage-bar">
+                                        <div class="storage-fill" style="width: 73.2%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="monitor-item">
+                                    <div class="monitor-header">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Security</span>
+                                    </div>
+                                    <div class="monitor-value">
+                                        <span class="value good">Secure</span>
+                                        <span class="label">All Systems</span>
+                                    </div>
+                                    <div class="security-indicators">
+                                        <div class="security-item">
+                                            <i class="fas fa-lock"></i>
+                                            <span>Encrypted</span>
+                                        </div>
+                                        <div class="security-item">
+                                            <i class="fas fa-user-shield"></i>
+                                            <span>Authenticated</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Mission Planner Modal -->
+    <div class="modal-overlay" id="missionPlannerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-route"></i> Mission Planner</h3>
+                <button class="modal-close" onclick="closeMissionPlanner()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="planner-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Mission Priority</label>
+                            <select id="missionPriority">
+                                <option value="urgent">Urgent - Emergency</option>
+                                <option value="high">High - Critical</option>
+                                <option value="medium" selected>Medium - Scheduled</option>
+                                <option value="low">Low - Routine</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Assigned Drone</label>
+                            <select id="assignedDrone">
+                                <option value="auto">Auto-Select Best</option>
+                                <option value="MD-003">MD-003 (Standby)</option>
+                                <option value="MD-005">MD-005 (Available)</option>
+                                <option value="MD-007">MD-007 (Ready)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Origin</label>
+                            <select id="missionOrigin">
+                                <option value="base">Base Station</option>
+                                <option value="dmch">DMCH</option>
+                                <option value="bsmmu">BSMMU</option>
+                                <option value="nicvd">NICVD</option>
+                                <option value="square">Square Hospital</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Destination</label>
+                            <select id="missionDestination">
+                                <option value="dmch">DMCH</option>
+                                <option value="bsmmu">BSMMU</option>
+                                <option value="nicvd">NICVD</option>
+                                <option value="square">Square Hospital</option>
+                                <option value="base">Base Station</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Scheduled Time</label>
+                            <input type="datetime-local" id="scheduledTime">
+                        </div>
+                        <div class="form-group">
+                            <label>Estimated Duration</label>
+                            <input type="text" id="estimatedDuration" placeholder="Auto-calculated" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Mission Description</label>
+                        <textarea id="missionDescription" placeholder="Enter mission details and special instructions..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeMissionPlanner()">Cancel</button>
+                <button class="btn-primary" onclick="scheduleMission()">Schedule Mission</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="operations-script.js"></script>
+</body>
+</html>

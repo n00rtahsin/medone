@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDONE - Mission Deployment</title>
+    <link rel="stylesheet" href="deploy-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-helicopter"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="brand-text">
+                    <h3>MEDONE</h3>
+                    <span>Deploy</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="operations.html" class="nav-link"><i class="fas fa-satellite"></i> Operations</a></li>
+                <li><a href="deploy.html" class="nav-link active"><i class="fas fa-rocket"></i> Deploy</a></li>
+                <li><a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="network.html" class="nav-link"><i class="fas fa-network-wired"></i> Network</a></li>
+                <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="emergency-btn pulse" onclick="triggerEmergency()">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency
+                </button>
+                <div class="user-profile" onclick="toggleUserMenu()">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23667eea'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='30' font-family='Arial'%3ENT%3C/text%3E%3C/svg%3E" alt="User">
+                    <span>NUR Tahsin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#help"><i class="fas fa-question-circle"></i> Help</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Deploy Main Content -->
+    <main class="deploy-main">
+        <div class="deploy-background">
+            <div class="floating-particles"></div>
+            <div class="grid-overlay"></div>
+        </div>
+
+        <!-- Mission Header -->
+        <section class="mission-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-info">
+                        <h1>Mission Deployment</h1>
+                        <p>Configure and deploy medical emergency missions with precision payload control</p>
+                    </div>
+                    <div class="mission-status">
+                        <div class="status-indicator ready">
+                            <i class="fas fa-check-circle"></i>
+                            <span>System Ready</span>
+                        </div>
+                        <div class="weather-status">
+                            <i class="fas fa-cloud-sun"></i>
+                            <span>Weather: Optimal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Configuration -->
+        <section class="mission-config">
+            <div class="container">
+                <div class="config-layout">
+                    <!-- Left Panel: Mission Settings -->
+                    <div class="mission-panel">
+                        <div class="panel-header">
+                            <h2><i class="fas fa-cog"></i> Mission Configuration</h2>
+                        </div>
+                        
+                        <!-- Mission Type Selection -->
+                        <div class="config-section">
+                            <h3>Mission Type</h3>
+                            <div class="mission-types">
+                                <div class="mission-type-card active" data-type="emergency">
+                                    <div class="type-icon">
+                                        <i class="fas fa-ambulance"></i>
+                                    </div>
+                                    <div class="type-info">
+                                        <h4>Emergency Response</h4>
+                                        <p>Critical medical supplies delivery</p>
+                                    </div>
+                                </div>
+                                <div class="mission-type-card" data-type="routine">
+                                    <div class="type-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="type-info">
+                                        <h4>Routine Delivery</h4>
+                                        <p>Scheduled medical supply transport</p>
+                                    </div>
+                                </div>
+                                <div class="mission-type-card" data-type="blood">
+                                    <div class="type-icon">
+                                        <i class="fas fa-tint"></i>
+                                    </div>
+                                    <div class="type-info">
+                                        <h4>Blood Products</h4>
+                                        <p>Temperature-controlled blood delivery</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Destination Selection -->
+                        <div class="config-section">
+                            <h3>Destination Hospital</h3>
+                            <div class="destination-selector">
+                                <select id="hospitalSelect" class="form-select">
+                                    <option value="">Select Hospital</option>
+                                    <option value="dmch">Dhaka Medical College Hospital (DMCH)</option>
+                                    <option value="bsmmu">BSMMU Hospital</option>
+                                    <option value="nicvd">National Institute of Cardiovascular Diseases (NICVD)</option>
+                                    <option value="square">Square Hospital</option>
+                                    <option value="birdem">BIRDEM General Hospital</option>
+                                    <option value="apollo">Apollo Hospital Dhaka</option>
+                                </select>
+                                <div class="hospital-info" id="hospitalInfo">
+                                    <div class="info-item">
+                                        <span class="label">Distance:</span>
+                                        <span class="value" id="hospitalDistance">--</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="label">Flight Time:</span>
+                                        <span class="value" id="flightTime">--</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="label">Landing Pad:</span>
+                                        <span class="value" id="landingPad">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Priority Level -->
+                        <div class="config-section">
+                            <h3>Priority Level</h3>
+                            <div class="priority-selector">
+                                <div class="priority-option high active" data-priority="high">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span>High Priority</span>
+                                </div>
+                                <div class="priority-option medium" data-priority="medium">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Medium Priority</span>
+                                </div>
+                                <div class="priority-option low" data-priority="low">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Low Priority</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flight Parameters -->
+                        <div class="config-section">
+                            <h3>Flight Parameters</h3>
+                            <div class="parameter-grid">
+                                <div class="parameter-item">
+                                    <label>Altitude (m)</label>
+                                    <input type="number" id="altitude" value="120" min="50" max="200">
+                                </div>
+                                <div class="parameter-item">
+                                    <label>Speed (m/s)</label>
+                                    <input type="number" id="speed" value="15" min="10" max="25">
+                                </div>
+                                <div class="parameter-item">
+                                    <label>Route Type</label>
+                                    <select id="routeType">
+                                        <option value="optimal">Optimal Route</option>
+                                        <option value="fastest">Fastest Route</option>
+                                        <option value="safest">Safest Route</option>
+                                    </select>
+                                </div>
+                                <div class="parameter-item">
+                                    <label>Return Mode</label>
+                                    <select id="returnMode">
+                                        <option value="auto">Auto Return</option>
+                                        <option value="manual">Manual Control</option>
+                                        <option value="standby">Standby at Destination</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Panel: Payload Configuration -->
+                    <div class="payload-panel">
+                        <div class="panel-header">
+                            <h2><i class="fas fa-box"></i> Payload Configuration</h2>
+                            <div class="payload-status">
+                                <span class="status-label">Status:</span>
+                                <span class="status-value ready">Ready</span>
+                            </div>
+                        </div>
+
+                        <!-- Payload Type Selection -->
+                        <div class="payload-section">
+                            <h3>Payload Type</h3>
+                            <div class="payload-types">
+                                <div class="payload-type active" data-type="blood">
+                                    <i class="fas fa-tint"></i>
+                                    <span>Blood Products</span>
+                                </div>
+                                <div class="payload-type" data-type="medicine">
+                                    <i class="fas fa-pills"></i>
+                                    <span>Medications</span>
+                                </div>
+                                <div class="payload-type" data-type="supplies">
+                                    <i class="fas fa-first-aid"></i>
+                                    <span>Medical Supplies</span>
+                                </div>
+                                <div class="payload-type" data-type="organs">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Organs/Tissue</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payload Details -->
+                        <div class="payload-section">
+                            <h3>Payload Details</h3>
+                            <div class="payload-details">
+                                <div class="detail-item">
+                                    <label>Weight (kg)</label>
+                                    <input type="number" id="payloadWeight" value="2.5" min="0.1" max="5.0" step="0.1">
+                                    <span class="unit-indicator">Max: 5.0 kg</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Quantity</label>
+                                    <input type="number" id="payloadQuantity" value="4" min="1" max="20">
+                                    <span class="unit-indicator">Units</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Temperature (°C)</label>
+                                    <input type="number" id="targetTemperature" value="4" min="-20" max="25">
+                                    <span class="unit-indicator">Target Temp</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Expiry Time</label>
+                                    <select id="expiryTime">
+                                        <option value="30">30 minutes</option>
+                                        <option value="60">1 hour</option>
+                                        <option value="120">2 hours</option>
+                                        <option value="240">4 hours</option>
+                                        <option value="480">8 hours</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Temperature Control -->
+                        <div class="payload-section">
+                            <h3>Temperature Control</h3>
+                            <div class="temp-control">
+                                <div class="temp-display">
+                                    <div class="temp-gauge">
+                                        <div class="gauge-arc"></div>
+                                        <div class="gauge-needle" id="tempNeedle"></div>
+                                        <div class="gauge-center">
+                                            <span id="currentTemp">4°C</span>
+                                        </div>
+                                    </div>
+                                    <div class="temp-info">
+                                        <div class="temp-range">
+                                            <span>Range: -20°C to +25°C</span>
+                                        </div>
+                                        <div class="temp-status">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Optimal Temperature</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="temp-presets">
+                                    <h4>Quick Presets</h4>
+                                    <div class="preset-buttons">
+                                        <button class="preset-btn active" data-temp="4">
+                                            <i class="fas fa-tint"></i>
+                                            Blood (4°C)
+                                        </button>
+                                        <button class="preset-btn" data-temp="-18">
+                                            <i class="fas fa-snowflake"></i>
+                                            Frozen (-18°C)
+                                        </button>
+                                        <button class="preset-btn" data-temp="20">
+                                            <i class="fas fa-pills"></i>
+                                            Room Temp (20°C)
+                                        </button>
+                                        <button class="preset-btn" data-temp="37">
+                                            <i class="fas fa-thermometer-half"></i>
+                                            Body Temp (37°C)
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payload Security -->
+                        <div class="payload-section">
+                            <h3>Security & Tracking</h3>
+                            <div class="security-options">
+                                <div class="security-item">
+                                    <label class="security-label">
+                                        <input type="checkbox" id="gpsTracking" checked>
+                                        <span class="checkmark"></span>
+                                        GPS Tracking
+                                    </label>
+                                    <p>Real-time location monitoring</p>
+                                </div>
+                                <div class="security-item">
+                                    <label class="security-label">
+                                        <input type="checkbox" id="tamperSeal" checked>
+                                        <span class="checkmark"></span>
+                                        Tamper Seal
+                                    </label>
+                                    <p>Detect unauthorized access</p>
+                                </div>
+                                <div class="security-item">
+                                    <label class="security-label">
+                                        <input type="checkbox" id="biometricAccess">
+                                        <span class="checkmark"></span>
+                                        Biometric Access
+                                    </label>
+                                    <p>Fingerprint-secured release</p>
+                                </div>
+                                <div class="security-item">
+                                    <label class="security-label">
+                                        <input type="checkbox" id="photoVerification" checked>
+                                        <span class="checkmark"></span>
+                                        Photo Verification
+                                    </label>
+                                    <p>Visual confirmation of delivery</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pre-flight Checks -->
+        <section class="preflight-section">
+            <div class="container">
+                <div class="preflight-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-clipboard-check"></i> Pre-flight Checklist</h2>
+                        <div class="checklist-progress">
+                            <span>Progress: <span id="checklistProgress">0</span>/12</span>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-grid">
+                        <div class="checklist-category">
+                            <h3>System Checks</h3>
+                            <div class="checklist-items">
+                                <div class="checklist-item" data-check="battery">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Battery Status
+                                    </label>
+                                    <span class="check-status">98% - Optimal</span>
+                                </div>
+                                <div class="checklist-item" data-check="gps">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        GPS Signal
+                                    </label>
+                                    <span class="check-status">12 Satellites - Strong</span>
+                                </div>
+                                <div class="checklist-item" data-check="communication">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Communication
+                                    </label>
+                                    <span class="check-status">5G Connected</span>
+                                </div>
+                                <div class="checklist-item" data-check="sensors">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Sensors
+                                    </label>
+                                    <span class="check-status">All Functional</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <h3>Payload Checks</h3>
+                            <div class="checklist-items">
+                                <div class="checklist-item" data-check="weight">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Weight Balance
+                                    </label>
+                                    <span class="check-status">2.5kg - Balanced</span>
+                                </div>
+                                <div class="checklist-item" data-check="temperature">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Temperature Control
+                                    </label>
+                                    <span class="check-status">4°C - Stable</span>
+                                </div>
+                                <div class="checklist-item" data-check="sealing">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Secure Sealing
+                                    </label>
+                                    <span class="check-status">Sealed & Locked</span>
+                                </div>
+                                <div class="checklist-item" data-check="tracking">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Tracking Active
+                                    </label>
+                                    <span class="check-status">Real-time GPS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <h3>Flight Readiness</h3>
+                            <div class="checklist-items">
+                                <div class="checklist-item" data-check="weather">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Weather Conditions
+                                    </label>
+                                    <span class="check-status">Clear - 10km visibility</span>
+                                </div>
+                                <div class="checklist-item" data-check="airspace">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Airspace Clearance
+                                    </label>
+                                    <span class="check-status">CAAB Approved</span>
+                                </div>
+                                <div class="checklist-item" data-check="route">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Flight Route
+                                    </label>
+                                    <span class="check-status">Optimal Path Set</span>
+                                </div>
+                                <div class="checklist-item" data-check="destination">
+                                    <label class="check-label">
+                                        <input type="checkbox" class="check-input">
+                                        <span class="checkmark"></span>
+                                        Destination Ready
+                                    </label>
+                                    <span class="check-status">DMCH Confirmed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Launch -->
+        <section class="launch-section">
+            <div class="container">
+                <div class="launch-panel">
+                    <div class="mission-summary">
+                        <h2>Mission Summary</h2>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <span class="label">Mission Type:</span>
+                                <span class="value" id="summaryType">Emergency Response</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Destination:</span>
+                                <span class="value" id="summaryDestination">Dhaka Medical College Hospital</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Payload:</span>
+                                <span class="value" id="summaryPayload">Blood Products (2.5kg)</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Flight Time:</span>
+                                <span class="value" id="summaryFlightTime">8 minutes</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Priority:</span>
+                                <span class="value priority-high" id="summaryPriority">High Priority</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Estimated Arrival:</span>
+                                <span class="value" id="summaryArrival">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="launch-controls">
+                        <div class="authorization">
+                            <h3>Mission Authorization</h3>
+                            <div class="auth-input">
+                                <label>Authorization Code:</label>
+                                <input type="password" id="authCode" placeholder="Enter authorization code">
+                            </div>
+                            <div class="auth-confirm">
+                                <label class="confirm-label">
+                                    <input type="checkbox" id="missionConfirm">
+                                    <span class="checkmark"></span>
+                                    I confirm all mission parameters are correct and authorize deployment
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="launch-button-container">
+                            <button class="launch-button" id="launchButton" disabled>
+                                <div class="launch-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div class="launch-text">
+                                    <span class="primary">Launch Mission</span>
+                                    <span class="secondary">Deploy medical drone</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="deploy-script.js"></script>
+</body>
+</html>

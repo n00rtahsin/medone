@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDONE - Secure Login</title>
+    <link rel="stylesheet" href="login-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-background">
+            <div class="floating-particles"></div>
+            <div class="grid-overlay"></div>
+            <div class="drone-animation">
+                <div class="drone-path">
+                    <i class="fas fa-helicopter drone-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-content">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="logo-section">
+                        <div class="logo-container">
+                            <i class="fas fa-helicopter"></i>
+                            <div class="pulse-ring"></div>
+                        </div>
+                        <div class="brand-info">
+                            <h1>MEDONE</h1>
+                            <p>Medical Emergency Drone Operations Network</p>
+                            <div class="certification-badges">
+                                <span class="cert-badge">CAAB Certified</span>
+                                <span class="cert-badge">DGHS Approved</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="system-status">
+                        <div class="status-indicator online"></div>
+                        <span>System Online</span>
+                    </div>
+                </div>
+                
+                <div class="login-form-container">
+                    <div class="form-header">
+                        <h2>Secure Access Portal</h2>
+                        <p>Enter your credentials to access the MEDONE control system</p>
+                    </div>
+                    
+                    <form id="loginForm" class="login-form">
+                        <div class="input-group">
+                            <div class="input-container">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" id="username" name="username" placeholder="Username" required>
+                                <div class="input-highlight"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="input-container">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" id="password" name="password" placeholder="Password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword()">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <div class="input-highlight"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="rememberMe">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <a href="#" class="forgot-password">Forgot password?</a>
+                        </div>
+                        
+                        <button type="submit" class="login-button">
+                            <span class="button-text">Access Control System</span>
+                            <i class="fas fa-arrow-right button-icon"></i>
+                            <div class="button-glow"></div>
+                        </button>
+                        
+                        <div class="security-info">
+                            <div class="security-item">
+                                <i class="fas fa-shield-check"></i>
+                                <span>256-bit SSL Encryption</span>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Session timeout: 8 hours</span>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="demo-credentials">
+                        <div class="demo-header">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Demo Access Credentials</span>
+                        </div>
+                        <div class="credentials-grid">
+                            <div class="credential-item">
+                                <span class="credential-label">Username:</span>
+                                <span class="credential-value">admin</span>
+                                <button class="copy-btn" onclick="copyCredential('admin')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="credential-item">
+                                <span class="credential-label">Password:</span>
+                                <span class="credential-value">medone2025</span>
+                                <button class="copy-btn" onclick="copyCredential('medone2025')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="demo-note">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>This is a demonstration system. Use provided credentials for testing.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="system-info">
+                <div class="info-section">
+                    <h3>Real-time Operations</h3>
+                    <div class="live-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-helicopter"></i>
+                            </div>
+                            <div class="stat-data">
+                                <span class="stat-value" id="activeDrones">8</span>
+                                <span class="stat-label">Active Drones</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <div class="stat-data">
+                                <span class="stat-value" id="connectedHospitals">12</span>
+                                <span class="stat-label">Connected Hospitals</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="stat-data">
+                                <span class="stat-value" id="livesImpacted">2,847</span>
+                                <span class="stat-label">Lives Impacted</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h3>Bangladesh Coverage</h3>
+                    <div class="coverage-map">
+                        <div class="map-container">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <div class="coverage-details">
+                                <div class="coverage-item">
+                                    <span class="location">Dhaka Division</span>
+                                    <span class="status active">Active</span>
+                                </div>
+                                <div class="coverage-item">
+                                    <span class="location">Chittagong Division</span>
+                                    <span class="status active">Active</span>
+                                </div>
+                                <div class="coverage-item">
+                                    <span class="location">Sylhet Division</span>
+                                    <span class="status expanding">Expanding</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="compliance-section">
+                    <h3>Regulatory Compliance</h3>
+                    <div class="compliance-grid">
+                        <div class="compliance-item">
+                            <i class="fas fa-plane"></i>
+                            <span>CAAB Licensed</span>
+                        </div>
+                        <div class="compliance-item">
+                            <i class="fas fa-medical-cross"></i>
+                            <span>DGHS Approved</span>
+                        </div>
+                        <div class="compliance-item">
+                            <i class="fas fa-globe"></i>
+                            <span>WHO Standards</span>
+                        </div>
+                        <div class="compliance-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>ISO 13485</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p>&copy; 2025 MEDONE Bangladesh. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#privacy">Privacy Policy</a>
+                        <a href="#terms">Terms of Service</a>
+                        <a href="#support">Support</a>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <div class="emergency-contact">
+                        <span>Emergency Hotline:</span>
+                        <a href="tel:16263">16263 (DGHS)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Login Processing Overlay -->
+    <div id="loginOverlay" class="login-overlay hidden">
+        <div class="overlay-content">
+            <div class="loading-animation">
+                <div class="spinner"></div>
+                <div class="loading-text">Authenticating...</div>
+                <div class="loading-subtext">Verifying credentials and establishing secure connection</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="login-script.js"></script>
+</body>
+</html>

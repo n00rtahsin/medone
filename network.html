@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDONE - Hospital Network</title>
+    <link rel="stylesheet" href="network-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-helicopter"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="brand-text">
+                    <h3>MEDONE</h3>
+                    <span>Network</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="operations.html" class="nav-link"><i class="fas fa-satellite"></i> Operations</a></li>
+                <li><a href="deploy.html" class="nav-link"><i class="fas fa-rocket"></i> Deploy</a></li>
+                <li><a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="network.html" class="nav-link active"><i class="fas fa-network-wired"></i> Network</a></li>
+                <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="emergency-btn pulse" onclick="triggerEmergency()">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency
+                </button>
+                <div class="user-profile" onclick="toggleUserMenu()">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23667eea'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='30' font-family='Arial'%3ENT%3C/text%3E%3C/svg%3E" alt="User">
+                    <span>NUR Tahsin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#help"><i class="fas fa-question-circle"></i> Help</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Network Main Content -->
+    <main class="network-main">
+        <div class="network-background">
+            <div class="floating-particles"></div>
+            <div class="grid-overlay"></div>
+        </div>
+
+        <!-- Network Header -->
+        <section class="network-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-info">
+                        <h1>Hospital Network</h1>
+                        <p>Comprehensive network of healthcare facilities connected through MEDONE drone delivery system</p>
+                    </div>
+                    <div class="network-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">47</span>
+                            <span class="stat-label">Connected Hospitals</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Active Drones</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">99.8%</span>
+                            <span class="stat-label">Network Uptime</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Network Map -->
+        <section class="network-map-section">
+            <div class="container">
+                <div class="map-panel">
+                    <div class="map-controls">
+                        <h2>Network Coverage Map</h2>
+                        <div class="map-filters">
+                            <button class="filter-btn active" data-filter="all">
+                                <i class="fas fa-hospital"></i>
+                                All Hospitals
+                            </button>
+                            <button class="filter-btn" data-filter="emergency">
+                                <i class="fas fa-ambulance"></i>
+                                Emergency Ready
+                            </button>
+                            <button class="filter-btn" data-filter="blood">
+                                <i class="fas fa-tint"></i>
+                                Blood Banks
+                            </button>
+                            <button class="filter-btn" data-filter="trauma">
+                                <i class="fas fa-user-md"></i>
+                                Trauma Centers
+                            </button>
+                        </div>
+                        <div class="map-legend">
+                            <div class="legend-item">
+                                <div class="legend-color online"></div>
+                                <span>Online & Active</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color maintenance"></div>
+                                <span>Maintenance</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color offline"></div>
+                                <span>Offline</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map-container">
+                        <div id="networkMap"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hospital Directory -->
+        <section class="hospital-directory">
+            <div class="container">
+                <div class="directory-header">
+                    <h2>Hospital Directory</h2>
+                    <div class="directory-controls">
+                        <div class="search-container">
+                            <i class="fas fa-search"></i>
+                            <input type="search" placeholder="Search hospitals..." class="search-input">
+                        </div>
+                        <select class="filter-select">
+                            <option value="all">All Categories</option>
+                            <option value="government">Government</option>
+                            <option value="private">Private</option>
+                            <option value="specialized">Specialized</option>
+                        </select>
+                        <button class="add-hospital-btn">
+                            <i class="fas fa-plus"></i>
+                            Add Hospital
+                        </button>
+                    </div>
+                </div>
+
+                <div class="hospitals-grid">
+                    <!-- Major Hospitals -->
+                    <div class="hospital-card featured">
+                        <div class="hospital-status online">
+                            <i class="fas fa-circle"></i>
+                            <span>Online</span>
+                        </div>
+                        <div class="hospital-header">
+                            <div class="hospital-icon">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <h3>Dhaka Medical College Hospital</h3>
+                                <p class="hospital-type">Government • General Hospital</p>
+                                <p class="hospital-location">Dhaka, Bangladesh</p>
+                            </div>
+                        </div>
+                        <div class="hospital-stats">
+                            <div class="stat">
+                                <span class="label">Missions Today</span>
+                                <span class="value">23</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Response Time</span>
+                                <span class="value">6.2 min</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Success Rate</span>
+                                <span class="value">99.8%</span>
+                            </div>
+                        </div>
+                        <div class="hospital-capabilities">
+                            <span class="capability emergency">Emergency</span>
+                            <span class="capability trauma">Trauma</span>
+                            <span class="capability blood">Blood Bank</span>
+                            <span class="capability icu">ICU</span>
+                        </div>
+                        <div class="hospital-actions">
+                            <button class="action-btn primary">
+                                <i class="fas fa-rocket"></i>
+                                Deploy Mission
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-phone"></i>
+                                Contact
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-chart-line"></i>
+                                Analytics
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hospital-card">
+                        <div class="hospital-status online">
+                            <i class="fas fa-circle"></i>
+                            <span>Online</span>
+                        </div>
+                        <div class="hospital-header">
+                            <div class="hospital-icon">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <h3>BSMMU Hospital</h3>
+                                <p class="hospital-type">Government • Medical University</p>
+                                <p class="hospital-location">Shahbag, Dhaka</p>
+                            </div>
+                        </div>
+                        <div class="hospital-stats">
+                            <div class="stat">
+                                <span class="label">Missions Today</span>
+                                <span class="value">18</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Response Time</span>
+                                <span class="value">7.1 min</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Success Rate</span>
+                                <span class="value">99.5%</span>
+                            </div>
+                        </div>
+                        <div class="hospital-capabilities">
+                            <span class="capability emergency">Emergency</span>
+                            <span class="capability research">Research</span>
+                            <span class="capability specialized">Specialized</span>
+                        </div>
+                        <div class="hospital-actions">
+                            <button class="action-btn primary">
+                                <i class="fas fa-rocket"></i>
+                                Deploy Mission
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-phone"></i>
+                                Contact
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-chart-line"></i>
+                                Analytics
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hospital-card">
+                        <div class="hospital-status maintenance">
+                            <i class="fas fa-circle"></i>
+                            <span>Maintenance</span>
+                        </div>
+                        <div class="hospital-header">
+                            <div class="hospital-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <h3>National Institute of Cardiovascular Diseases</h3>
+                                <p class="hospital-type">Government • Specialized</p>
+                                <p class="hospital-location">Sher-e-Bangla Nagar, Dhaka</p>
+                            </div>
+                        </div>
+                        <div class="hospital-stats">
+                            <div class="stat">
+                                <span class="label">Missions Today</span>
+                                <span class="value">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Last Mission</span>
+                                <span class="value">2h ago</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Avg Success Rate</span>
+                                <span class="value">99.2%</span>
+                            </div>
+                        </div>
+                        <div class="hospital-capabilities">
+                            <span class="capability cardiac">Cardiac</span>
+                            <span class="capability surgery">Surgery</span>
+                            <span class="capability icu">ICU</span>
+                        </div>
+                        <div class="hospital-actions">
+                            <button class="action-btn disabled">
+                                <i class="fas fa-tools"></i>
+                                Under Maintenance
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-phone"></i>
+                                Contact
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-chart-line"></i>
+                                Analytics
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hospital-card">
+                        <div class="hospital-status online">
+                            <i class="fas fa-circle"></i>
+                            <span>Online</span>
+                        </div>
+                        <div class="hospital-header">
+                            <div class="hospital-icon">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <h3>Square Hospital</h3>
+                                <p class="hospital-type">Private • General Hospital</p>
+                                <p class="hospital-location">Panthapath, Dhaka</p>
+                            </div>
+                        </div>
+                        <div class="hospital-stats">
+                            <div class="stat">
+                                <span class="label">Missions Today</span>
+                                <span class="value">15</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Response Time</span>
+                                <span class="value">8.5 min</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Success Rate</span>
+                                <span class="value">98.9%</span>
+                            </div>
+                        </div>
+                        <div class="hospital-capabilities">
+                            <span class="capability emergency">Emergency</span>
+                            <span class="capability diagnostics">Diagnostics</span>
+                            <span class="capability surgery">Surgery</span>
+                        </div>
+                        <div class="hospital-actions">
+                            <button class="action-btn primary">
+                                <i class="fas fa-rocket"></i>
+                                Deploy Mission
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-phone"></i>
+                                Contact
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-chart-line"></i>
+                                Analytics
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hospital-card">
+                        <div class="hospital-status online">
+                            <i class="fas fa-circle"></i>
+                            <span>Online</span>
+                        </div>
+                        <div class="hospital-header">
+                            <div class="hospital-icon">
+                                <i class="fas fa-stethoscope"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <h3>BIRDEM General Hospital</h3>
+                                <p class="hospital-type">Private • Specialized</p>
+                                <p class="hospital-location">Shahbag, Dhaka</p>
+                            </div>
+                        </div>
+                        <div class="hospital-stats">
+                            <div class="stat">
+                                <span class="label">Missions Today</span>
+                                <span class="value">12</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Response Time</span>
+                                <span class="value">9.2 min</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Success Rate</span>
+                                <span class="value">99.1%</span>
+                            </div>
+                        </div>
+                        <div class="hospital-capabilities">
+                            <span class="capability diabetes">Diabetes</span>
+                            <span class="capability endocrine">Endocrine</span>
+                            <span class="capability research">Research</span>
+                        </div>
+                        <div class="hospital-actions">
+                            <button class="action-btn primary">
+                                <i class="fas fa-rocket"></i>
+                                Deploy Mission
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-phone"></i>
+                                Contact
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-chart-line"></i>
+                                Analytics
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hospital-card">
+                        <div class="hospital-status online">
+                            <i class="fas fa-circle"></i>
+                            <span>Online</span>
+                        </div>
+                        <div class="hospital-header">
+                            <div class="hospital-icon">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <h3>Apollo Hospital Dhaka</h3>
+                                <p class="hospital-type">Private • International</p>
+                                <p class="hospital-location">Bashundhara, Dhaka</p>
+                            </div>
+                        </div>
+                        <div class="hospital-stats">
+                            <div class="stat">
+                                <span class="label">Missions Today</span>
+                                <span class="value">21</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Response Time</span>
+                                <span class="value">10.1 min</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Success Rate</span>
+                                <span class="value">99.3%</span>
+                            </div>
+                        </div>
+                        <div class="hospital-capabilities">
+                            <span class="capability international">International</span>
+                            <span class="capability oncology">Oncology</span>
+                            <span class="capability transplant">Transplant</span>
+                        </div>
+                        <div class="hospital-actions">
+                            <button class="action-btn primary">
+                                <i class="fas fa-rocket"></i>
+                                Deploy Mission
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-phone"></i>
+                                Contact
+                            </button>
+                            <button class="action-btn secondary">
+                                <i class="fas fa-chart-line"></i>
+                                Analytics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button class="load-more-btn">
+                        <i class="fas fa-plus"></i>
+                        Load More Hospitals
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Network Statistics -->
+        <section class="network-statistics">
+            <div class="container">
+                <div class="statistics-header">
+                    <h2>Network Performance</h2>
+                    <div class="statistics-period">
+                        <select class="period-select">
+                            <option value="today">Today</option>
+                            <option value="week" selected>This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="year">This Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="statistics-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Hospital Performance</h3>
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="hospitalChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Response Times</h3>
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="responseChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Monthly Deliveries</h3>
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="deliveryChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Network Coverage</h3>
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="coverageChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="network-script.js"></script>
+</body>
+</html>

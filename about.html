@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDONE - About Us</title>
+    <link rel="stylesheet" href="about-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-helicopter"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="brand-text">
+                    <h3>MEDONE</h3>
+                    <span>About</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="operations.html" class="nav-link"><i class="fas fa-satellite"></i> Operations</a></li>
+                <li><a href="deploy.html" class="nav-link"><i class="fas fa-rocket"></i> Deploy</a></li>
+                <li><a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="network.html" class="nav-link"><i class="fas fa-network-wired"></i> Network</a></li>
+                <li><a href="about.html" class="nav-link active"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="emergency-btn pulse" onclick="triggerEmergency()">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency
+                </button>
+                <div class="user-profile" onclick="toggleUserMenu()">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23667eea'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='30' font-family='Arial'%3ENT%3C/text%3E%3C/svg%3E" alt="User">
+                    <span>NUR Tahsin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#help"><i class="fas fa-question-circle"></i> Help</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Main Content -->
+    <main class="about-main">
+        <div class="about-background">
+            <div class="floating-particles"></div>
+            <div class="grid-overlay"></div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Medical Emergency Drone Operations Network</h1>
+                        <p class="hero-subtitle">Revolutionizing emergency medical response in Bangladesh through advanced drone technology</p>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">50,000+</div>
+                                <div class="stat-label">Lives Impacted</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">2,500+</div>
+                                <div class="stat-label">Emergency Deliveries</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">8 min</div>
+                                <div class="stat-label">Average Response Time</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">99.2%</div>
+                                <div class="stat-label">Success Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="drone-visualization">
+                            <div class="drone-icon">
+                                <i class="fas fa-helicopter"></i>
+                            </div>
+                            <div class="flight-path path-1"></div>
+                            <div class="flight-path path-2"></div>
+                            <div class="flight-path path-3"></div>
+                            <div class="hospital-marker marker-1">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <div class="hospital-marker marker-2">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <div class="hospital-marker marker-3">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Mission</h2>
+                    <p>Bridging the gap between critical medical needs and life-saving interventions</p>
+                </div>
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>Save Lives</h3>
+                        <p>Deliver critical medical supplies, blood products, and emergency medications to save lives in remote and urban areas of Bangladesh.</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Rapid Response</h3>
+                        <p>Reduce emergency response times from hours to minutes, ensuring critical interventions reach patients when every second counts.</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Connect Healthcare</h3>
+                        <p>Create a seamless network connecting hospitals, clinics, and emergency services across Bangladesh's diverse geographic landscape.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Section -->
+        <section class="technology-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Advanced Technology</h2>
+                    <p>Cutting-edge drone systems designed for medical emergency response</p>
+                </div>
+                <div class="tech-content">
+                    <div class="tech-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Safety & Reliability</h4>
+                                <p>Triple-redundant systems ensure 99.9% reliability with advanced obstacle avoidance and weather adaptation capabilities.</p>
+                                <ul>
+                                    <li>Automated collision avoidance</li>
+                                    <li>Real-time weather monitoring</li>
+                                    <li>Emergency landing protocols</li>
+                                    <li>Encrypted communication systems</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Temperature Control</h4>
+                                <p>Advanced thermal management systems maintain critical temperatures for blood products, vaccines, and temperature-sensitive medications.</p>
+                                <ul>
+                                    <li>Precision temperature control (±0.5°C)</li>
+                                    <li>Insulated payload compartments</li>
+                                    <li>Real-time temperature monitoring</li>
+                                    <li>Cold chain compliance</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-satellite"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>AI-Powered Navigation</h4>
+                                <p>Machine learning algorithms optimize flight paths, predict weather patterns, and ensure efficient resource allocation.</p>
+                                <ul>
+                                    <li>Dynamic route optimization</li>
+                                    <li>Predictive weather analysis</li>
+                                    <li>Traffic pattern recognition</li>
+                                    <li>Emergency priority routing</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-battery-full"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Extended Range</h4>
+                                <p>High-capacity lithium polymer batteries provide 45-minute flight time with 25km range, covering entire metropolitan areas.</p>
+                                <ul>
+                                    <li>45-minute flight duration</li>
+                                    <li>25km operational range</li>
+                                    <li>Fast-charging technology (30min)</li>
+                                    <li>Battery health monitoring</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="impact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Real-World Impact</h2>
+                    <p>Transforming emergency medical response across Bangladesh</p>
+                </div>
+                <div class="impact-grid">
+                    <div class="impact-story">
+                        <div class="story-image">
+                            <div class="story-icon">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                        </div>
+                        <div class="story-content">
+                            <h4>Emergency Blood Delivery</h4>
+                            <p>"MEDONE drones delivered O-negative blood units to DMCH in just 6 minutes during a multi-casualty accident. This rapid response saved three lives that night."</p>
+                            <div class="story-meta">
+                                <span class="story-author">Dr. Rashida Khan</span>
+                                <span class="story-role">Emergency Physician, DMCH</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="impact-story">
+                        <div class="story-image">
+                            <div class="story-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="story-content">
+                            <h4>Cardiac Emergency Response</h4>
+                            <p>"When our patient needed immediate cardiac medications, MEDONE delivered them from the central pharmacy to NICVD in under 8 minutes, enabling successful treatment."</p>
+                            <div class="story-meta">
+                                <span class="story-author">Dr. Muhammad Hasan</span>
+                                <span class="story-role">Cardiologist, NICVD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="impact-story">
+                        <div class="story-image">
+                            <div class="story-icon">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                        </div>
+                        <div class="story-content">
+                            <h4>Neonatal Emergency</h4>
+                            <p>"Critical pediatric medications reached our NICU in record time through MEDONE's temperature-controlled delivery system, ensuring proper care for premature infants."</p>
+                            <div class="story-meta">
+                                <span class="story-author">Dr. Fatima Ahmed</span>
+                                <span class="story-role">Neonatologist, BSMMU</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compliance Section -->
+        <section class="compliance-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Regulatory Compliance</h2>
+                    <p>Fully certified and compliant with Bangladesh healthcare and aviation authorities</p>
+                </div>
+                <div class="compliance-grid">
+                    <div class="compliance-card">
+                        <div class="compliance-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h4>CAAB Certified</h4>
+                        <p>Civil Aviation Authority Bangladesh (CAAB) certified for commercial drone operations in medical emergency scenarios.</p>
+                        <div class="cert-details">
+                            <div class="cert-item">
+                                <span class="cert-label">License:</span>
+                                <span class="cert-value">CAAB-MD-2024-001</span>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-label">Valid Until:</span>
+                                <span class="cert-value">December 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliance-card">
+                        <div class="compliance-icon">
+                            <i class="fas fa-hospital-user"></i>
+                        </div>
+                        <h4>DGHS Approved</h4>
+                        <p>Directorate General of Health Services (DGHS) approved for medical supply transportation and emergency response operations.</p>
+                        <div class="cert-details">
+                            <div class="cert-item">
+                                <span class="cert-label">Approval:</span>
+                                <span class="cert-value">DGHS-EMR-2024-003</span>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-label">Valid Until:</span>
+                                <span class="cert-value">March 2027</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliance-card">
+                        <div class="compliance-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h4>WHO Standards</h4>
+                        <p>Compliant with World Health Organization (WHO) guidelines for medical supply chain and emergency response protocols.</p>
+                        <div class="cert-details">
+                            <div class="cert-item">
+                                <span class="cert-label">Standard:</span>
+                                <span class="cert-value">WHO-ESC-2024</span>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-label">Audit Date:</span>
+                                <span class="cert-value">August 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Team</h2>
+                    <p>Dedicated professionals working to revolutionize emergency medical response</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h4>Dr. Amina Rahman</h4>
+                        <p class="member-role">Chief Medical Officer</p>
+                        <p class="member-bio">Emergency medicine specialist with 15+ years experience in trauma care and emergency response systems.</p>
+                        <div class="member-contact">
+                            <a href="mailto:amina.rahman@medone.bd"><i class="fas fa-envelope"></i></a>
+                            <a href="#linkedin"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h4>Eng. Mahmud Hassan</h4>
+                        <p class="member-role">Chief Technology Officer</p>
+                        <p class="member-bio">Aerospace engineer specialized in autonomous systems and drone technology with expertise in medical device integration.</p>
+                        <div class="member-contact">
+                            <a href="mailto:mahmud.hassan@medone.bd"><i class="fas fa-envelope"></i></a>
+                            <a href="#linkedin"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Sarah Khan</h4>
+                        <p class="member-role">Operations Director</p>
+                        <p class="member-bio">Healthcare operations expert with experience in supply chain management and emergency logistics coordination.</p>
+                        <div class="member-contact">
+                            <a href="mailto:sarah.khan@medone.bd"><i class="fas fa-envelope"></i></a>
+                            <a href="#linkedin"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Ahmed Abdullah</h4>
+                        <p class="member-role">Safety & Compliance</p>
+                        <p class="member-bio">Aviation safety expert ensuring all operations meet international standards and regulatory requirements.</p>
+                        <div class="member-contact">
+                            <a href="mailto:ahmed.abdullah@medone.bd"><i class="fas fa-envelope"></i></a>
+                            <a href="#linkedin"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Contact Us</h2>
+                    <p>Get in touch for partnerships, support, or emergency coordination</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Emergency Hotline</h4>
+                                <p>+880 2 16263</p>
+                                <span>24/7 Emergency Response</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>General Inquiries</h4>
+                                <p>info@medone.bd</p>
+                                <span>Response within 24 hours</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Headquarters</h4>
+                                <p>MEDONE Operations Center<br>Dhanmondi, Dhaka 1205<br>Bangladesh</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Partnerships</h4>
+                                <p>partnerships@medone.bd</p>
+                                <span>Hospital networks & NGOs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="contactName">Name</label>
+                                <input type="text" id="contactName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email</label>
+                                <input type="email" id="contactEmail" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactOrganization">Organization</label>
+                                <input type="text" id="contactOrganization" name="organization">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactSubject">Subject</label>
+                                <select id="contactSubject" name="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="emergency">Emergency Coordination</option>
+                                    <option value="partnership">Partnership Inquiry</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="training">Training Program</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactMessage">Message</label>
+                                <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="about-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 MEDONE Bangladesh. All rights reserved.</p>
+                    <div class="certifications">
+                        <span class="cert">CAAB Certified</span>
+                        <span class="cert">DGHS Approved</span>
+                        <span class="cert">WHO Standard</span>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#api">API Documentation</a>
+                    <a href="tel:16263">Emergency: 16263</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="about-script.js"></script>
+</body>
+</html>

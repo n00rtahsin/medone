@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDONE - Compliance</title>
+    <link rel="stylesheet" href="compliance-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-helicopter"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="brand-text">
+                    <h3>MEDONE</h3>
+                    <span>Compliance</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="operations.html" class="nav-link"><i class="fas fa-satellite"></i> Operations</a></li>
+                <li><a href="deploy.html" class="nav-link"><i class="fas fa-rocket"></i> Deploy</a></li>
+                <li><a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="network.html" class="nav-link"><i class="fas fa-network-wired"></i> Network</a></li>
+                <li><a href="compliance.html" class="nav-link active"><i class="fas fa-shield-check"></i> Compliance</a></li>
+                <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="emergency-btn pulse" onclick="triggerEmergency()">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency
+                </button>
+                <div class="user-profile" onclick="toggleUserMenu()">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23667eea'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='30' font-family='Arial'%3ENT%3C/text%3E%3C/svg%3E" alt="User">
+                    <span>NUR Tahsin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#help"><i class="fas fa-question-circle"></i> Help</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Compliance Main Content -->
+    <main class="compliance-main">
+        <div class="compliance-background">
+            <div class="floating-particles"></div>
+            <div class="grid-overlay"></div>
+        </div>
+
+        <!-- Compliance Header -->
+        <section class="compliance-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-info">
+                        <h1>Regulatory Compliance</h1>
+                        <p>Ensuring full compliance with Bangladesh Civil Aviation Authority (CAAB) and international medical standards</p>
+                        <div class="compliance-status">
+                            <div class="status-indicator active"></div>
+                            <span>All Systems Compliant</span>
+                            <div class="last-audit">Last Audit: September 1, 2025</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compliance Overview -->
+        <section class="compliance-overview">
+            <div class="container">
+                <div class="compliance-grid">
+                    <div class="compliance-card">
+                        <div class="compliance-icon caab">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <div class="compliance-content">
+                            <h3>CAAB Authorization</h3>
+                            <p>Civil Aviation Authority Bangladesh</p>
+                            <div class="compliance-status-badge active">
+                                <i class="fas fa-check-circle"></i>
+                                Active
+                            </div>
+                            <div class="compliance-details">
+                                <div class="detail-item">
+                                    <span>License No:</span>
+                                    <span>CAAB-DRONE-2025-MD001</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Valid Until:</span>
+                                    <span>December 31, 2025</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Max Altitude:</span>
+                                    <span>500 feet AGL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliance-card">
+                        <div class="compliance-icon health">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <div class="compliance-content">
+                            <h3>Ministry of Health</h3>
+                            <p>Medical Transport Authorization</p>
+                            <div class="compliance-status-badge active">
+                                <i class="fas fa-check-circle"></i>
+                                Certified
+                            </div>
+                            <div class="compliance-details">
+                                <div class="detail-item">
+                                    <span>Permit No:</span>
+                                    <span>MOH-MDT-2025-001</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Categories:</span>
+                                    <span>Blood, Organs, Medicines</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Review Date:</span>
+                                    <span>June 15, 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliance-card">
+                        <div class="compliance-icon iso">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="compliance-content">
+                            <h3>ISO 13485:2016</h3>
+                            <p>Medical Device Quality Management</p>
+                            <div class="compliance-status-badge active">
+                                <i class="fas fa-check-circle"></i>
+                                Certified
+                            </div>
+                            <div class="compliance-details">
+                                <div class="detail-item">
+                                    <span>Certificate:</span>
+                                    <span>ISO-13485-MD-2025</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Scope:</span>
+                                    <span>Medical Drone Operations</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Next Audit:</span>
+                                    <span>September 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliance-card">
+                        <div class="compliance-icon gdp">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div class="compliance-content">
+                            <h3>GDP Compliance</h3>
+                            <p>Good Distribution Practice</p>
+                            <div class="compliance-status-badge active">
+                                <i class="fas fa-check-circle"></i>
+                                Validated
+                            </div>
+                            <div class="compliance-details">
+                                <div class="detail-item">
+                                    <span>Cold Chain:</span>
+                                    <span>2-8°C Validated</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Monitoring:</span>
+                                    <span>Real-time Temperature</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Validation:</span>
+                                    <span>Annual Review</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Safety Standards -->
+        <section class="safety-standards">
+            <div class="container">
+                <h2>Safety Standards & Protocols</h2>
+                <div class="standards-grid">
+                    <div class="standard-item">
+                        <div class="standard-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Flight Safety</h3>
+                        <ul>
+                            <li>Pre-flight inspection protocols</li>
+                            <li>Weather monitoring systems</li>
+                            <li>Emergency landing procedures</li>
+                            <li>No-fly zone compliance</li>
+                        </ul>
+                    </div>
+
+                    <div class="standard-item">
+                        <div class="standard-icon">
+                            <i class="fas fa-temperature-low"></i>
+                        </div>
+                        <h3>Cold Chain Management</h3>
+                        <ul>
+                            <li>Temperature monitoring 2-8°C</li>
+                            <li>Insulated payload compartments</li>
+                            <li>Real-time alerts</li>
+                            <li>Chain of custody tracking</li>
+                        </ul>
+                    </div>
+
+                    <div class="standard-item">
+                        <div class="standard-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Security Protocols</h3>
+                        <ul>
+                            <li>Secure communication channels</li>
+                            <li>Encrypted data transmission</li>
+                            <li>Access control systems</li>
+                            <li>Audit trail maintenance</li>
+                        </ul>
+                    </div>
+
+                    <div class="standard-item">
+                        <div class="standard-icon">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <h3>Personnel Training</h3>
+                        <ul>
+                            <li>Drone operation certification</li>
+                            <li>Medical handling protocols</li>
+                            <li>Emergency response training</li>
+                            <li>Continuous education programs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audit History -->
+        <section class="audit-history">
+            <div class="container">
+                <h2>Audit History & Documentation</h2>
+                <div class="audit-timeline">
+                    <div class="audit-item">
+                        <div class="audit-date">
+                            <div class="date-circle">Sep</div>
+                            <div class="date-year">2025</div>
+                        </div>
+                        <div class="audit-content">
+                            <h3>Annual CAAB Inspection</h3>
+                            <p>Comprehensive review of flight operations, safety protocols, and maintenance records.</p>
+                            <div class="audit-result success">
+                                <i class="fas fa-check-circle"></i>
+                                Passed with Commendation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="audit-item">
+                        <div class="audit-date">
+                            <div class="date-circle">Jun</div>
+                            <div class="date-year">2025</div>
+                        </div>
+                        <div class="audit-content">
+                            <h3>ISO 13485 Surveillance Audit</h3>
+                            <p>Quality management system assessment for medical device operations.</p>
+                            <div class="audit-result success">
+                                <i class="fas fa-check-circle"></i>
+                                Certificate Maintained
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="audit-item">
+                        <div class="audit-date">
+                            <div class="date-circle">Mar</div>
+                            <div class="date-year">2025</div>
+                        </div>
+                        <div class="audit-content">
+                            <h3>Ministry of Health Review</h3>
+                            <p>Medical transport authorization renewal and protocol verification.</p>
+                            <div class="audit-result success">
+                                <i class="fas fa-check-circle"></i>
+                                Authorization Renewed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="compliance-script.js"></script>
+</body>
+</html>

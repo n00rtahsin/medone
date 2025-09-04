@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDONE - Dashboard</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-helicopter"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="brand-text">
+                    <h3>MEDONE</h3>
+                    <span>Bangladesh</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="operations.html" class="nav-link"><i class="fas fa-satellite"></i> Operations</a></li>
+                <li><a href="deploy.html" class="nav-link"><i class="fas fa-rocket"></i> Deploy</a></li>
+                <li><a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="network.html" class="nav-link"><i class="fas fa-network-wired"></i> Network</a></li>
+                <li><a href="compliance.html" class="nav-link"><i class="fas fa-shield-check"></i> Compliance</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="emergency-btn pulse" onclick="triggerEmergency()">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency
+                </button>
+                <div class="user-profile" onclick="toggleUserMenu()">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23667eea'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='30' font-family='Arial'%3ENT%3C/text%3E%3C/svg%3E" alt="User">
+                    <span>NUR Tahsin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#help"><i class="fas fa-question-circle"></i> Help</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-background">
+            <div class="floating-particles"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        
+        <!-- Dashboard Header -->
+        <section class="dashboard-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="welcome-section">
+                        <h1>Welcome back, NUR Tahsin</h1>
+                        <p>Medical Emergency Drone Operations Network - Bangladesh</p>
+                        <div class="current-status">
+                            <div class="status-indicator online"></div>
+                            <span>All Systems Operational</span>
+                            <div class="status-details">
+                                <span>8 Drones Active</span>
+                                <span>•</span>
+                                <span>12 Hospitals Connected</span>
+                                <span>•</span>
+                                <span id="currentTime"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-btn primary" onclick="window.location.href='deploy.html'">
+                            <i class="fas fa-rocket"></i>
+                            <span>Deploy Mission</span>
+                        </button>
+                        <button class="action-btn secondary" onclick="window.location.href='operations.html'">
+                            <i class="fas fa-satellite"></i>
+                            <span>Mission Control</span>
+                        </button>
+                        <button class="action-btn emergency" onclick="triggerEmergency()">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Emergency</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Statistics -->
+        <section class="live-statistics">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="todayDeliveries">47</div>
+                            <div class="stat-label">Today's Deliveries</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+12% from yesterday</span>
+                            </div>
+                        </div>
+                        <div class="stat-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card success">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="avgResponseTime">8:32</div>
+                            <div class="stat-label">Avg Response Time</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>2min faster than target</span>
+                            </div>
+                        </div>
+                        <div class="stat-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card warning">
+                        <div class="stat-icon">
+                            <i class="fas fa-battery-three-quarters"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="fleetBattery">87%</div>
+                            <div class="stat-label">Fleet Battery Avg</div>
+                            <div class="stat-change neutral">
+                                <i class="fas fa-minus"></i>
+                                <span>3 drones charging</span>
+                            </div>
+                        </div>
+                        <div class="stat-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 87%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card info">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="successRate">99.2%</div>
+                            <div class="stat-label">Mission Success Rate</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>Above 99% target</span>
+                            </div>
+                        </div>
+                        <div class="stat-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Dashboard Grid -->
+        <section class="dashboard-content">
+            <div class="container">
+                <div class="dashboard-grid">
+                    <!-- Active Missions -->
+                    <div class="dashboard-card missions-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-satellite"></i> Active Missions</h3>
+                            <div class="card-actions">
+                                <button class="btn-icon" onclick="refreshMissions()">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                                <button class="btn-primary" onclick="window.location.href='operations.html'">
+                                    View All
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="missions-list">
+                                <div class="mission-item active">
+                                    <div class="mission-status">
+                                        <div class="status-dot delivering"></div>
+                                        <span class="status-text">EN ROUTE</span>
+                                    </div>
+                                    <div class="mission-details">
+                                        <div class="mission-id">MD-2025-0904-001</div>
+                                        <div class="mission-route">Base Station → DMCH</div>
+                                        <div class="mission-payload">Emergency Blood Supply</div>
+                                    </div>
+                                    <div class="mission-progress">
+                                        <div class="progress-info">
+                                            <span>ETA: 4:32</span>
+                                            <span>67%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 67%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mission-item active">
+                                    <div class="mission-status">
+                                        <div class="status-dot returning"></div>
+                                        <span class="status-text">RETURNING</span>
+                                    </div>
+                                    <div class="mission-details">
+                                        <div class="mission-id">MD-2025-0904-002</div>
+                                        <div class="mission-route">BSMMU → Base Station</div>
+                                        <div class="mission-payload">Mission Complete</div>
+                                    </div>
+                                    <div class="mission-progress">
+                                        <div class="progress-info">
+                                            <span>ETA: 6:15</span>
+                                            <span>43%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 43%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mission-item standby">
+                                    <div class="mission-status">
+                                        <div class="status-dot standby"></div>
+                                        <span class="status-text">STANDBY</span>
+                                    </div>
+                                    <div class="mission-details">
+                                        <div class="mission-id">MD-2025-0904-003</div>
+                                        <div class="mission-route">Standby at Square Hospital</div>
+                                        <div class="mission-payload">Awaiting Orders</div>
+                                    </div>
+                                    <div class="mission-progress">
+                                        <div class="progress-info">
+                                            <span>Ready</span>
+                                            <span>100%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hospital Network Status -->
+                    <div class="dashboard-card hospitals-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-hospital"></i> Hospital Network</h3>
+                            <div class="card-actions">
+                                <button class="btn-icon" onclick="refreshHospitals()">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                                <button class="btn-primary" onclick="window.location.href='network.html'">
+                                    View Network
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="hospitals-grid">
+                                <div class="hospital-item">
+                                    <div class="hospital-info">
+                                        <div class="hospital-icon">
+                                            <i class="fas fa-hospital"></i>
+                                        </div>
+                                        <div class="hospital-details">
+                                            <div class="hospital-name">DMCH</div>
+                                            <div class="hospital-type">National Referral</div>
+                                        </div>
+                                    </div>
+                                    <div class="hospital-status">
+                                        <div class="status-indicator online"></div>
+                                        <div class="load-info">
+                                            <span class="load-label">Load: 85%</span>
+                                            <div class="load-bar">
+                                                <div class="load-fill" style="width: 85%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="hospital-item">
+                                    <div class="hospital-info">
+                                        <div class="hospital-icon">
+                                            <i class="fas fa-hospital"></i>
+                                        </div>
+                                        <div class="hospital-details">
+                                            <div class="hospital-name">BSMMU</div>
+                                            <div class="hospital-type">Research Center</div>
+                                        </div>
+                                    </div>
+                                    <div class="hospital-status">
+                                        <div class="status-indicator online"></div>
+                                        <div class="load-info">
+                                            <span class="load-label">Load: 62%</span>
+                                            <div class="load-bar">
+                                                <div class="load-fill" style="width: 62%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="hospital-item">
+                                    <div class="hospital-info">
+                                        <div class="hospital-icon">
+                                            <i class="fas fa-heart"></i>
+                                        </div>
+                                        <div class="hospital-details">
+                                            <div class="hospital-name">NICVD</div>
+                                            <div class="hospital-type">Cardiac Specialist</div>
+                                        </div>
+                                    </div>
+                                    <div class="hospital-status">
+                                        <div class="status-indicator online"></div>
+                                        <div class="load-info">
+                                            <span class="load-label">Load: 91%</span>
+                                            <div class="load-bar">
+                                                <div class="load-fill" style="width: 91%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="hospital-item">
+                                    <div class="hospital-info">
+                                        <div class="hospital-icon">
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="hospital-details">
+                                            <div class="hospital-name">Square Hospital</div>
+                                            <div class="hospital-type">Premium Care</div>
+                                        </div>
+                                    </div>
+                                    <div class="hospital-status">
+                                        <div class="status-indicator online"></div>
+                                        <div class="load-info">
+                                            <span class="load-label">Load: 43%</span>
+                                            <div class="load-bar">
+                                                <div class="load-fill" style="width: 43%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weather & Environmental -->
+                    <div class="dashboard-card weather-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-cloud-sun"></i> Weather Conditions</h3>
+                            <div class="location-info">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Dhaka, Bangladesh</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="current-weather">
+                                <div class="weather-main">
+                                    <div class="weather-icon">
+                                        <i class="fas fa-sun"></i>
+                                    </div>
+                                    <div class="weather-temp">32°C</div>
+                                    <div class="weather-desc">Clear Sky</div>
+                                </div>
+                                <div class="weather-details">
+                                    <div class="weather-item">
+                                        <i class="fas fa-wind"></i>
+                                        <span>Wind: 4.8 m/s SW</span>
+                                    </div>
+                                    <div class="weather-item">
+                                        <i class="fas fa-eye"></i>
+                                        <span>Visibility: 8 km</span>
+                                    </div>
+                                    <div class="weather-item">
+                                        <i class="fas fa-tint"></i>
+                                        <span>Humidity: 78%</span>
+                                    </div>
+                                    <div class="weather-item">
+                                        <i class="fas fa-thermometer-half"></i>
+                                        <span>Feels like: 36°C</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flight-conditions">
+                                <h4>Flight Conditions</h4>
+                                <div class="condition-status favorable">
+                                    <div class="status-indicator"></div>
+                                    <span>FAVORABLE</span>
+                                </div>
+                                <div class="conditions-grid">
+                                    <div class="condition-item good">
+                                        <span>Wind Speed</span>
+                                        <span class="condition-value">Good</span>
+                                    </div>
+                                    <div class="condition-item good">
+                                        <span>Visibility</span>
+                                        <span class="condition-value">Excellent</span>
+                                    </div>
+                                    <div class="condition-item moderate">
+                                        <span>Air Quality</span>
+                                        <span class="condition-value">Moderate</span>
+                                    </div>
+                                    <div class="condition-item good">
+                                        <span>Precipitation</span>
+                                        <span class="condition-value">None</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Chart -->
+                    <div class="dashboard-card chart-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-area"></i> Performance Metrics</h3>
+                            <div class="chart-controls">
+                                <select id="chartPeriod" onchange="updateChartPeriod(this.value)">
+                                    <option value="24h">Last 24 Hours</option>
+                                    <option value="7d">Last 7 Days</option>
+                                    <option value="30d">Last 30 Days</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- System Alerts -->
+                    <div class="dashboard-card alerts-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bell"></i> System Alerts</h3>
+                            <div class="alert-summary">
+                                <span class="alert-count">3 Active</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="alerts-list">
+                                <div class="alert-item warning">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Weather Advisory</div>
+                                        <div class="alert-message">Light rain expected in 45 minutes. Monitor conditions.</div>
+                                        <div class="alert-time">2 minutes ago</div>
+                                    </div>
+                                    <button class="alert-dismiss" onclick="dismissAlert(this)">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="alert-item info">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Maintenance Scheduled</div>
+                                        <div class="alert-message">Drone MD-005 scheduled for routine maintenance at 16:00.</div>
+                                        <div class="alert-time">15 minutes ago</div>
+                                    </div>
+                                    <button class="alert-dismiss" onclick="dismissAlert(this)">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="alert-item success">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Mission Completed</div>
+                                        <div class="alert-message">Emergency delivery to NICVD completed successfully.</div>
+                                        <div class="alert-time">23 minutes ago</div>
+                                    </div>
+                                    <button class="alert-dismiss" onclick="dismissAlert(this)">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 MEDONE Bangladesh. Licensed by CAAB & DGHS.</p>
+                    <div class="certifications">
+                        <span class="cert">CAAB Certified</span>
+                        <span class="cert">DGHS Approved</span>
+                        <span class="cert">WHO Standard</span>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="#support">Support</a>
+                    <a href="#docs">Documentation</a>
+                    <a href="#api">API</a>
+                    <a href="tel:16263">Emergency: 16263</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="dashboard-script.js"></script>
+</body>
+</html>

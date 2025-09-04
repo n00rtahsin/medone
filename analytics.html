@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDONE - Analytics & Reports</title>
+    <link rel="stylesheet" href="analytics-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-helicopter"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="brand-text">
+                    <h3>MEDONE</h3>
+                    <span>Analytics</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="operations.html" class="nav-link"><i class="fas fa-satellite"></i> Operations</a></li>
+                <li><a href="deploy.html" class="nav-link"><i class="fas fa-rocket"></i> Deploy</a></li>
+                <li><a href="analytics.html" class="nav-link active"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="network.html" class="nav-link"><i class="fas fa-network-wired"></i> Network</a></li>
+                <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="emergency-btn pulse" onclick="triggerEmergency()">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency
+                </button>
+                <div class="user-profile" onclick="toggleUserMenu()">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23667eea'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='30' font-family='Arial'%3ENT%3C/text%3E%3C/svg%3E" alt="User">
+                    <span>NUR Tahsin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#help"><i class="fas fa-question-circle"></i> Help</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Analytics Main Content -->
+    <main class="analytics-main">
+        <div class="analytics-background">
+            <div class="floating-particles"></div>
+            <div class="grid-overlay"></div>
+        </div>
+
+        <!-- Analytics Header -->
+        <section class="analytics-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-info">
+                        <h1>Analytics & Reports</h1>
+                        <p>Comprehensive data insights and performance metrics for MEDONE operations</p>
+                    </div>
+                    <div class="time-range-selector">
+                        <select id="timeRange" class="time-select">
+                            <option value="24h">Last 24 Hours</option>
+                            <option value="7d" selected>Last 7 Days</option>
+                            <option value="30d">Last 30 Days</option>
+                            <option value="90d">Last 3 Months</option>
+                            <option value="1y">Last Year</option>
+                        </select>
+                        <button class="refresh-btn" onclick="refreshAnalytics()">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics Overview -->
+        <section class="metrics-overview">
+            <div class="container">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 id="totalMissions">2,547</h3>
+                            <p>Total Missions</p>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+12.5%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon primary">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 id="avgResponseTime">8.2</h3>
+                            <p>Avg Response Time (min)</p>
+                            <div class="metric-change negative">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>-2.1%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon info">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 id="successRate">99.2</h3>
+                            <p>Success Rate (%)</p>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+0.3%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon warning">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 id="livesImpacted">50,284</h3>
+                            <p>Lives Impacted</p>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+8.7%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="container">
+                <div class="charts-grid">
+                    <!-- Mission Volume Chart -->
+                    <div class="chart-card full-width">
+                        <div class="chart-header">
+                            <h3>Mission Volume Trends</h3>
+                            <div class="chart-controls">
+                                <button class="chart-control-btn active" data-chart="missions" data-type="daily">Daily</button>
+                                <button class="chart-control-btn" data-chart="missions" data-type="weekly">Weekly</button>
+                                <button class="chart-control-btn" data-chart="missions" data-type="monthly">Monthly</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="missionsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Response Time Chart -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Response Time Distribution</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="responseTimeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Success Rate Chart -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Success Rate by Mission Type</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="successRateChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Hospital Distribution -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Hospital Distribution</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="hospitalDistributionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Payload Analysis -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Payload Type Analysis</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="payloadChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Analytics -->
+        <section class="performance-section">
+            <div class="container">
+                <div class="performance-grid">
+                    <!-- Fleet Performance -->
+                    <div class="performance-card">
+                        <div class="card-header">
+                            <h3>Fleet Performance</h3>
+                            <i class="fas fa-helicopter"></i>
+                        </div>
+                        <div class="performance-metrics">
+                            <div class="perf-item">
+                                <span class="label">Active Drones</span>
+                                <span class="value">8/12</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 67%"></div>
+                                </div>
+                            </div>
+                            <div class="perf-item">
+                                <span class="label">Fleet Utilization</span>
+                                <span class="value">87%</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 87%"></div>
+                                </div>
+                            </div>
+                            <div class="perf-item">
+                                <span class="label">Maintenance Due</span>
+                                <span class="value">2 Drones</span>
+                                <div class="progress-bar warning">
+                                    <div class="progress-fill" style="width: 16%"></div>
+                                </div>
+                            </div>
+                            <div class="perf-item">
+                                <span class="label">Average Flight Time</span>
+                                <span class="value">42 min</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 93%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Critical Metrics -->
+                    <div class="performance-card">
+                        <div class="card-header">
+                            <h3>Critical Metrics</h3>
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="critical-metrics">
+                            <div class="critical-item">
+                                <div class="critical-icon emergency">
+                                    <i class="fas fa-ambulance"></i>
+                                </div>
+                                <div class="critical-content">
+                                    <h4>Emergency Response</h4>
+                                    <p>Avg: 6.2 min | Target: <8 min</p>
+                                    <span class="status success">Within Target</span>
+                                </div>
+                            </div>
+                            <div class="critical-item">
+                                <div class="critical-icon blood">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <div class="critical-content">
+                                    <h4>Blood Products</h4>
+                                    <p>Temp Control: 99.8% success</p>
+                                    <span class="status success">Optimal</span>
+                                </div>
+                            </div>
+                            <div class="critical-item">
+                                <div class="critical-icon weather">
+                                    <i class="fas fa-cloud-rain"></i>
+                                </div>
+                                <div class="critical-content">
+                                    <h4>Weather Impact</h4>
+                                    <p>Mission delays: 3.2%</p>
+                                    <span class="status warning">Monitor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Real-time Alerts -->
+                    <div class="performance-card">
+                        <div class="card-header">
+                            <h3>Real-time Alerts</h3>
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="alerts-list">
+                            <div class="alert-item high">
+                                <div class="alert-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="alert-content">
+                                    <h4>Drone MED-05 Battery Low</h4>
+                                    <p>23% remaining - Return to base</p>
+                                    <span class="alert-time">2 min ago</span>
+                                </div>
+                            </div>
+                            <div class="alert-item medium">
+                                <div class="alert-icon">
+                                    <i class="fas fa-thermometer-half"></i>
+                                </div>
+                                <div class="alert-content">
+                                    <h4>Temperature Variance Detected</h4>
+                                    <p>Mission #2547 - Blood products</p>
+                                    <span class="alert-time">5 min ago</span>
+                                </div>
+                            </div>
+                            <div class="alert-item low">
+                                <div class="alert-icon">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div class="alert-content">
+                                    <h4>Routine Maintenance Scheduled</h4>
+                                    <p>Drone MED-03 - Tomorrow 09:00</p>
+                                    <span class="alert-time">1 hour ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Reports -->
+        <section class="reports-section">
+            <div class="container">
+                <div class="reports-header">
+                    <h2>Detailed Reports</h2>
+                    <div class="report-actions">
+                        <button class="export-btn" onclick="exportReport('pdf')">
+                            <i class="fas fa-file-pdf"></i>
+                            Export PDF
+                        </button>
+                        <button class="export-btn" onclick="exportReport('excel')">
+                            <i class="fas fa-file-excel"></i>
+                            Export Excel
+                        </button>
+                        <button class="export-btn" onclick="generateCustomReport()">
+                            <i class="fas fa-cogs"></i>
+                            Custom Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="reports-grid">
+                    <!-- Mission Summary Table -->
+                    <div class="report-card full-width">
+                        <div class="report-header">
+                            <h3>Recent Missions Summary</h3>
+                            <div class="table-controls">
+                                <input type="search" placeholder="Search missions..." class="search-input">
+                                <select class="filter-select">
+                                    <option value="all">All Missions</option>
+                                    <option value="emergency">Emergency</option>
+                                    <option value="routine">Routine</option>
+                                    <option value="blood">Blood Products</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="missions-table">
+                                <thead>
+                                    <tr>
+                                        <th>Mission ID</th>
+                                        <th>Type</th>
+                                        <th>Destination</th>
+                                        <th>Payload</th>
+                                        <th>Status</th>
+                                        <th>Duration</th>
+                                        <th>Completion</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="missionsTableBody">
+                                    <!-- Dynamic content will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-pagination">
+                            <span class="pagination-info">Showing 1-10 of 156 missions</span>
+                            <div class="pagination-controls">
+                                <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                                <button class="page-btn active">1</button>
+                                <button class="page-btn">2</button>
+                                <button class="page-btn">3</button>
+                                <button class="page-btn">...</button>
+                                <button class="page-btn">16</button>
+                                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Benchmarks -->
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3>Performance Benchmarks</h3>
+                        </div>
+                        <div class="benchmarks-content">
+                            <div class="benchmark-item">
+                                <div class="benchmark-label">
+                                    <span>Response Time Target</span>
+                                    <span class="target">< 10 minutes</span>
+                                </div>
+                                <div class="benchmark-value">
+                                    <span class="current">8.2 min</span>
+                                    <span class="status success">18% better</span>
+                                </div>
+                            </div>
+                            <div class="benchmark-item">
+                                <div class="benchmark-label">
+                                    <span>Success Rate Target</span>
+                                    <span class="target">> 98%</span>
+                                </div>
+                                <div class="benchmark-value">
+                                    <span class="current">99.2%</span>
+                                    <span class="status success">1.2% above</span>
+                                </div>
+                            </div>
+                            <div class="benchmark-item">
+                                <div class="benchmark-label">
+                                    <span>Battery Efficiency</span>
+                                    <span class="target">> 90%</span>
+                                </div>
+                                <div class="benchmark-value">
+                                    <span class="current">94.7%</span>
+                                    <span class="status success">4.7% above</span>
+                                </div>
+                            </div>
+                            <div class="benchmark-item">
+                                <div class="benchmark-label">
+                                    <span>Temperature Control</span>
+                                    <span class="target">±0.5°C</span>
+                                </div>
+                                <div class="benchmark-value">
+                                    <span class="current">±0.2°C</span>
+                                    <span class="status success">60% better</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Analysis -->
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3>Cost Analysis</h3>
+                        </div>
+                        <div class="cost-content">
+                            <div class="cost-overview">
+                                <div class="cost-total">
+                                    <span class="label">Total Operating Cost</span>
+                                    <span class="amount">৳2,84,500</span>
+                                    <span class="period">This Month</span>
+                                </div>
+                            </div>
+                            <div class="cost-breakdown">
+                                <div class="cost-item">
+                                    <span class="category">Fuel & Energy</span>
+                                    <span class="percentage">42%</span>
+                                    <span class="amount">৳1,19,490</span>
+                                </div>
+                                <div class="cost-item">
+                                    <span class="category">Maintenance</span>
+                                    <span class="percentage">28%</span>
+                                    <span class="amount">৳79,660</span>
+                                </div>
+                                <div class="cost-item">
+                                    <span class="category">Personnel</span>
+                                    <span class="percentage">20%</span>
+                                    <span class="amount">৸56,900</span>
+                                </div>
+                                <div class="cost-item">
+                                    <span class="category">Other</span>
+                                    <span class="percentage">10%</span>
+                                    <span class="amount">৳28,450</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="analytics-script.js"></script>
+</body>
+</html>
