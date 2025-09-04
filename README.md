@@ -1,7 +1,23 @@
 # MEDONE - Medical Drone Emergency Network Operations 🚁🏥
 
 ## Overview
-MEDONE is a comprehensive web-based platform for managing medical drone delivery operations in Bangladesh. The system provides real-time analytics, network monitoring, compliance tracking, and operational management for life-saving medical deliveries.
+MEDONE is a comprehensive web-bas## 📄 License
+
+This project is licensed under a **Custom Non-Commercial License** - see the [LICENSE](LICENSE) file for details.
+
+### 🚫 Commercial Use Restriction
+- **Non-commercial use**: Free for educational, research, and personal projects
+- **Commercial use**: Requires explicit written permission from the author
+- **Contact for licensing**: n00rtahsin@users.noreply.github.com
+
+### 🏥 Medical Implementation Notice
+When implementing this software for medical purposes, ensure compliance with:
+- Local aviation regulations (CAAB in Bangladesh)
+- Medical device and healthcare data protection laws
+- Emergency services coordination protocols
+- Patient privacy and data security requirements
+
+**Note**: Medical organizations seeking commercial implementation must obtain commercial licensing.m for managing medical drone delivery operations in Bangladesh. The system provides real-time analytics, network monitoring, compliance tracking, and operational management for life-saving medical deliveries.
 
 ## 🎯 Features
 

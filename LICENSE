@@ -1,24 +1,64 @@
-MIT License
+MEDONE Custom License
 
 Copyright (c) 2025 NUR Tahsin (n00rtahsin)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+TERMS AND CONDITIONS:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. NON-COMMERCIAL USE
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to use,
+   modify, and distribute copies of the Software for NON-COMMERCIAL purposes only,
+   subject to the following conditions:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. COMMERCIAL USE RESTRICTION
+   Commercial use, including but not limited to selling, licensing for profit,
+   or using this software as part of a commercial service or product, is 
+   STRICTLY PROHIBITED without explicit written permission from the copyright holder.
+
+3. ATTRIBUTION REQUIREMENT
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+4. CONTACT FOR COMMERCIAL LICENSING
+   For commercial use permissions, contact: n00rtahsin@users.noreply.github.com
+
+5. MODIFICATION AND DISTRIBUTION
+   You may modify and distribute this software for non-commercial purposes,
+   provided that:
+   - All modifications are clearly documented
+   - The original copyright notice is preserved
+   - This license is included with all distributions
+   - Commercial use of modified versions is also prohibited without permission
+
+6. DISCLAIMER
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+
+---
+
+ADDITIONAL TERMS FOR MEDICAL APPLICATIONS:
+
+This software is designed for medical drone delivery systems and emergency 
+healthcare operations. Users implementing this software for medical purposes 
+must ensure compliance with:
+
+1. Local aviation regulations (e.g., CAAB in Bangladesh)
+2. Medical device and healthcare data protection laws
+3. Emergency services coordination protocols
+4. Patient privacy and data security requirements
+
+The authors disclaim any liability for medical outcomes, flight safety, 
+or regulatory compliance issues arising from the use of this software.
+
+For medical implementations, proper testing, certification, and regulatory 
+approval are the responsibility of the implementing organization.
+
+COMMERCIAL MEDICAL USE REQUIRES EXPLICIT LICENSING AGREEMENT.
 
 ---
 
