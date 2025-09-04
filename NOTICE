@@ -1,0 +1,18 @@
+NOTICE - Medical Application Terms
+
+This software is designed for medical drone delivery systems and emergency 
+healthcare operations. Users implementing this software for medical purposes 
+must ensure compliance with:
+
+1. Local aviation regulations (e.g., CAAB in Bangladesh)
+2. Medical device and healthcare data protection laws
+3. Emergency services coordination protocols
+4. Patient privacy and data security requirements
+
+The authors disclaim any liability for medical outcomes, flight safety, 
+or regulatory compliance issues arising from the use of this software.
+
+For medical implementations, proper testing, certification, and regulatory 
+approval are the responsibility of the implementing organization.
+
+For questions regarding medical implementations, contact: mdnazmun.nur@gmail.com

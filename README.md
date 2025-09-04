@@ -3,21 +3,30 @@
 ## Overview
 MEDONE is a comprehensive web-bas## 📄 License
 
-This project is licensed under a **Custom Non-Commercial License** - see the [LICENSE](LICENSE) file for details.
+This project is l## 📞 Support
 
-### 🚫 Commercial Use Restriction
-- **Non-commercial use**: Free for educational, research, and personal projects
-- **Commercial use**: Requires explicit written permission from the author
-- **Contact for licensing**: n00rtahsin@users.noreply.github.com
+For technical support or medical emergency coordination, contact: **mdnazmun.nur@gmail.com**nsed under the **Apache License 2.0** - see the [LICENSE](LICENSE) file for details.
+
+### ✅ What Apache 2.0 Allows:
+- ✅ **Commercial use** - Use in commercial products and services
+- ✅ **Modification** - Modify and create derivative works
+- ✅ **Distribution** - Distribute original and modified versions
+- ✅ **Patent use** - Express grant of patent rights from contributors
+- ✅ **Private use** - Use for personal and internal projects
+
+### 📋 Requirements:
+- 📋 **License and copyright notice** - Include in all copies
+- 📋 **State changes** - Document significant modifications
+- 📋 **Attribution** - Preserve copyright and attribution notices
 
 ### 🏥 Medical Implementation Notice
-When implementing this software for medical purposes, ensure compliance with:
+When implementing this software for medical purposes, see [NOTICE](NOTICE) file and ensure compliance with:
 - Local aviation regulations (CAAB in Bangladesh)
 - Medical device and healthcare data protection laws
 - Emergency services coordination protocols
 - Patient privacy and data security requirements
 
-**Note**: Medical organizations seeking commercial implementation must obtain commercial licensing.m for managing medical drone delivery operations in Bangladesh. The system provides real-time analytics, network monitoring, compliance tracking, and operational management for life-saving medical deliveries.
+**Contact for medical implementations**: mdnazmun.nur@gmail.comm for managing medical drone delivery operations in Bangladesh. The system provides real-time analytics, network monitoring, compliance tracking, and operational management for life-saving medical deliveries.
 
 ## 🎯 Features
 
