@@ -3,7 +3,42 @@
 ## Overview
 MEDONE is a comprehensive web-bas## 📄 License
 
-This project is l## 📞 Support
+This## 🤝 Contributing
+
+This project is proprietary software. Contributions are not accepted without explicit written permission from the copyright holder. Contact mdnazmun.nur@gmail.com for any collaboration inquiries.
+
+## 📄 License
+
+This project is licensed under a **Proprietary License** - see the [LICENSE](LICENSE) file for details.
+
+### 🔒 IMPORTANT: All Rights Reserved
+- 🚫 **NO unauthorized use** - Any use requires explicit written permission
+- 🚫 **NO copying or modification** - Viewing for evaluation only
+- 🚫 **NO commercial use** - Strictly prohibited without permission
+- 🚫 **NO derivative works** - Cannot be used as basis for other projects
+
+### 📧 Permission Requests
+**To request permission for any use:**
+- **Email**: mdnazmun.nur@gmail.com
+- **Subject**: "MEDONE License Permission Request"
+- **Include**: Intended use, organization details, scope of implementation
+
+### ⚖️ Legal Protection
+- **Copyright infringement** penalties apply for unauthorized use
+- **All rights reserved** by NUR Tahsin
+- **Legal action** may be taken against violations
+- **Governed by** Bangladesh law
+
+### 🏥 Medical Implementation Notice
+When granted permission for medical implementations, see [NOTICE](NOTICE) file and ensure compliance with:
+- Local aviation regulations (CAAB in Bangladesh)
+- Medical device and healthcare data protection laws
+- Emergency services coordination protocols
+- Patient privacy and data security requirements
+
+## 📞 Support
+
+For technical support, licensing inquiries, or medical emergency coordination, contact: **mdnazmun.nur@gmail.com** Support
 
 For technical support or medical emergency coordination, contact: **mdnazmun.nur@gmail.com**nsed under the **Apache License 2.0** - see the [LICENSE](LICENSE) file for details.
 

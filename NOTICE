@@ -1,8 +1,13 @@
-NOTICE - Medical Application Terms
+NOTICE - Proprietary Software with Medical Application Terms
 
-This software is designed for medical drone delivery systems and emergency 
-healthcare operations. Users implementing this software for medical purposes 
-must ensure compliance with:
+Copyright (c) 2025 NUR Tahsin (n00rtahsin)
+All rights reserved.
+
+IMPORTANT: This is proprietary software. Any use requires explicit written 
+permission from the copyright holder.
+
+For medical drone implementations that are granted permission, users must 
+ensure compliance with:
 
 1. Local aviation regulations (e.g., CAAB in Bangladesh)
 2. Medical device and healthcare data protection laws
@@ -15,4 +20,6 @@ or regulatory compliance issues arising from the use of this software.
 For medical implementations, proper testing, certification, and regulatory 
 approval are the responsibility of the implementing organization.
 
-For questions regarding medical implementations, contact: mdnazmun.nur@gmail.com
+UNAUTHORIZED USE IS STRICTLY PROHIBITED AND CONSTITUTES COPYRIGHT INFRINGEMENT.
+
+For all licensing inquiries, contact: mdnazmun.nur@gmail.com
