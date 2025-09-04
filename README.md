@@ -47,7 +47,7 @@ MEDONE is a comprehensive web-based platform for managing medical drone delivery
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/medone-website.git
+   git clone https://github.com/n00rtahsin/medone.git
    cd medone-website
    ```
 
@@ -106,7 +106,18 @@ The system tracks crucial KPIs including:
 
 This project supports Bangladesh's healthcare infrastructure through innovative drone technology. For contributions or support, please ensure compliance with medical data handling regulations.
 
-## 📞 Support
+## � License
+
+This project is licensed under the MIT License with additional terms for medical applications - see the [LICENSE](LICENSE) file for details.
+
+### 🏥 Medical Implementation Notice
+When implementing this software for medical purposes, ensure compliance with:
+- Local aviation regulations (CAAB in Bangladesh)
+- Medical device and healthcare data protection laws
+- Emergency services coordination protocols
+- Patient privacy and data security requirements
+
+## �📞 Support
 
 For technical support or medical emergency coordination, contact the MEDONE operations center.
 
